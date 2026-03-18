@@ -1,4 +1,4 @@
-import UserRepository from "../../repository/abstracts/user.abstracts.js";
+import UserRepository from "../abstracts/user.abstracts.js";
 import fs from "fs";
 
 class User extends UserRepository {

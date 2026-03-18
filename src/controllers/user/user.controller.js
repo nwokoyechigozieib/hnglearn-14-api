@@ -1,8 +1,10 @@
 import { CreateUserSchema, UpdateUserSchema } from "../../schema/schema.js";
 import UserService from "../../services/user/user.service.js";
 import FileStore from "../../repository/filestore/index.repository.js";
+import PostgresStore from "../../repository/postgres/index.repository.js";
 
-const storage = FileStore.User;
+// const storage = FileStore.User;
+const storage = PostgresStore.User;
 const userServiceInstance = new UserService(storage);
 
 class UserController {
