@@ -3,7 +3,7 @@ class UserService {
     this.storage = storage;
   }
   async filterusers({ q = null, page = 1, limit = 10 }) {
-    return await this.storage.readUsersFromFile();
+    return await this.storage.filterusers({ q, page, limit });
   }
 
   async getUserById(id) {

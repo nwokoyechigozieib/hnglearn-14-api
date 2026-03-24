@@ -50,8 +50,8 @@ class User extends UserRepository {
     if (q) {
       users = users.filter(
         (user) =>
-          user.name.toLowerCase().includes(q.toLowerCase()) ||
-          user.email.toLowerCase().includes(q.toLowerCase()),
+          user?.name?.toLowerCase().includes(q.toLowerCase()) ||
+          user?.email?.toLowerCase().includes(q.toLowerCase()),
       );
     }
 
@@ -62,6 +62,7 @@ class User extends UserRepository {
   }
 
   async getUserById(id) {
+    id = parseInt(id);
     const users = await this.readUsersFromFile();
     const user = users.find((us) => us.id === id);
     return user;
@@ -83,6 +84,7 @@ class User extends UserRepository {
   }
 
   async updateUser(id, { name, email }) {
+    id = parseInt(id);
     const users = await this.readUsersFromFile();
     const userIndex = users.findIndex((us) => us.id === id);
     const user = users[userIndex];
@@ -92,6 +94,7 @@ class User extends UserRepository {
   }
 
   async deleteUser(id) {
+    id = parseInt(id);
     const users = await this.readUsersFromFile();
     const userIndex = users.findIndex((us) => us.id === id);
     const deletedUser = users.splice(userIndex, 1)[0];

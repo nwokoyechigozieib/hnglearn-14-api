@@ -2,15 +2,16 @@ import { CreateUserSchema, UpdateUserSchema } from "../../schema/schema.js";
 import UserService from "../../services/user/user.service.js";
 import FileStore from "../../repository/filestore/index.repository.js";
 import PostgresStore from "../../repository/postgres/index.repository.js";
+import MongoDBStore from "../../repository/mongodb/index.repository.js";
 
 // const storage = FileStore.User;
-const storage = PostgresStore.User;
+// const storage = PostgresStore.User;
+const storage = MongoDBStore.User;
+
 const userServiceInstance = new UserService(storage);
 
 class UserController {
   constructor(userService) {
-    console.log("UserController initialized with UserService");
-    console.log("UserService instance:", userService);
     this.userService = userService;
   }
 
@@ -27,8 +28,7 @@ class UserController {
 
   // get user by id
   getUserById = async (req, res) => {
-    const id = parseInt(req.params.id);
-    const user = await this.userService.getUserById(id);
+    const user = await this.userService.getUserById(req.params.id);
     if (user) {
       res.json(user);
     } else {
@@ -57,7 +57,7 @@ class UserController {
 
   // update a user
   updateUser = async (req, res) => {
-    const id = parseInt(req.params.id);
+    const id = req.params.id;
 
     const data = UpdateUserSchema.safeParse(req.body); // synchronous
     if (!data.success) {
@@ -78,7 +78,7 @@ class UserController {
 
   // delete a user
   deleteUser = async (req, res) => {
-    const id = parseInt(req.params.id);
+    const id = req.params.id;
     const response = await this.userService.deleteUser(id);
     if (response.error) {
       return res.status(response.status).json({ message: response.error });
