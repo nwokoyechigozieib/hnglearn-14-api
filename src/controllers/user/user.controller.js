@@ -4,9 +4,9 @@ import FileStore from "../../repository/filestore/index.repository.js";
 import PostgresStore from "../../repository/postgres/index.repository.js";
 import MongoDBStore from "../../repository/mongodb/index.repository.js";
 
-// const storage = FileStore.User;
+const storage = FileStore.User;
 // const storage = PostgresStore.User;
-const storage = MongoDBStore.User;
+// const storage = MongoDBStore.User;
 
 const userServiceInstance = new UserService(storage);
 
